@@ -2,6 +2,7 @@ package com.garlicbread.foodbridge
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -13,21 +14,29 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Base64
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import com.garlicbread.foodbridge.databinding.ActivityDonationFormBinding
 import com.garlicbread.foodbridge.dto.DonationItem
 import com.garlicbread.foodbridge.retrofit.RetrofitInstance
 import com.google.firebase.Firebase
 import com.google.firebase.storage.storage
+import com.google.gson.JsonObject
+import okhttp3.FormBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import java.io.IOException
 import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -125,6 +134,20 @@ class DonationForm : AppCompatActivity() {
         return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
     }
 
+    private fun encodeImageToBase64(context: Context, photoUri: Uri): String? {
+        return try {
+            val inputStream = context.contentResolver.openInputStream(photoUri)
+            val bytes = inputStream?.readBytes()
+            inputStream?.close()
+            Base64.encodeToString(bytes, Base64.NO_WRAP) // Convert to Base64
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+
+    @SuppressLint("SetTextI18n")
     private val startForResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
@@ -135,7 +158,40 @@ class DonationForm : AppCompatActivity() {
                 var bitmap = BitmapFactory.decodeStream(inputStream)
                 bitmap = bitmap.rotate(90f)
                 binding.ivImagePreview.setImageBitmap(bitmap)
+
+                val client = OkHttpClient()
+                val photoBase64 = encodeImageToBase64(this, photoURI) ?: ""
+
+                val requestBody = FormBody.Builder()
+                    .add("image", photoBase64)
+                    .build()
+
+                val request = Request.Builder()
+                    .url("https://debf-128-59-179-213.ngrok-free.app/upload_image")
+                    .post(requestBody)
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .build()
+
+                binding.insights.isVisible = true
+
+                client.newCall(request).enqueue(object : okhttp3.Callback {
+                    override fun onFailure(call: okhttp3.Call, e: IOException) {
+                        e.printStackTrace()
+                    }
+
+                    override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                        response.body?.string()?.let { it1 ->
+                            val json = JSONObject(it1)
+                            val rating = json.getString("rating")
+                            val reasoning = json.getString("reasoning")
+                            binding.insights.text = reasoning
+                            binding.value.text = "$rating (${rating.toInt() * 5} points)"
+                            binding.value.isVisible = true
+                        }
+                    }
+                })
             }
+
             if (title.isNotEmpty() && flag) {
                 binding.donate.alpha = 1f
                 binding.donate.isEnabled = true
