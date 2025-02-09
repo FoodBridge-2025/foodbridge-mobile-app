@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Food Bridge</string>
+    <string name="hey">Hey</string>
+    <string name="donation">Where would you like to donate today?</string>
+    <string name="anticipates_serving">anticipates serving</string>
+    <string name="donate">Donate</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="i_want_to_feed">I want to feed…</string>
+    <string name="person_s">person(s)</string>
+    <string name="_1">1</string>
+    <string name="we_need_some_details">We need some details :)</string>
+    <string name="send">Send</string>
+    <string name="i_have">I have</string>
+    <string name="mac_and_cheese">Mac and Cheese</string>
+    <string name="some_more_details">Some more details...</string>
+    <string name="freshly_prepared_contains_milk">Freshly prepared. Contains milk.</string>
 </resources>

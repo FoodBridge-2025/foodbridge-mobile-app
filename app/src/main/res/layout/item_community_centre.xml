@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:id="@+id/view"
+    android:layout_marginBottom="10dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/rounded_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/community_centre"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        tools:text="Test Community Centre"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/subtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="@string/anticipates_serving"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textColor="#17B169"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/title"/>
+
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        tools:text="2 person(s)"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:textColor="#636363"
+        app:layout_constraintStart_toEndOf="@id/subtext"
+        app:layout_constraintBottom_toBottomOf="@id/subtext"/>
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        tools:text="3.9 miles away"
+        android:textStyle="italic"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/subtext"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
