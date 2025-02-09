@@ -1,9 +1,9 @@
 package com.garlicbread.foodbridge.dto
 
-data class CommunityCentreRequests(
+data class CommunityCentreItem(
     val id: String,
     val title: String,
     val quantity: Int,
-    val latitude: Long,
-    val longitude: Long,
+    val distance: Double,
+    val reqId: String
 )

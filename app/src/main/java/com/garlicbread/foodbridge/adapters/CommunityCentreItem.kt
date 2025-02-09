@@ -11,11 +11,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.garlicbread.foodbridge.CommunityCentre
 import com.garlicbread.foodbridge.R
-import com.garlicbread.foodbridge.dto.CommunityCentreRequests
 
 
 class CommunityCentreItem(
-    private val dataList: List<CommunityCentreRequests>,
+    private val dataList: List<com.garlicbread.foodbridge.dto.CommunityCentreItem>,
     private val context: Context
 ) : RecyclerView.Adapter<CommunityCentreItem.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -40,6 +39,7 @@ class CommunityCentreItem(
         holder.view.setOnClickListener {
             val newIntent = Intent(context, CommunityCentre::class.java)
             newIntent.putExtra("CommunityCentreId", dataList[position].id)
+            newIntent.putExtra("RequestId", dataList[position].reqId)
             context.startActivity(newIntent)
         }
     }

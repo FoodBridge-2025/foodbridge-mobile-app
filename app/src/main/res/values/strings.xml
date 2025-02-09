@@ -14,4 +14,14 @@
     <string name="mac_and_cheese">Mac and Cheese</string>
     <string name="some_more_details">Some more details...</string>
     <string name="freshly_prepared_contains_milk">Freshly prepared. Contains milk.</string>
+    <string name="enter_your_credentials">Enter your credentials</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="enter_your_details">Enter your details</string>
+    <string name="name">Name</string>
+    <string name="age">Age</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
 </resources>
