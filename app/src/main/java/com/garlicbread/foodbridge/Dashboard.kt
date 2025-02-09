@@ -1,6 +1,7 @@
 package com.garlicbread.foodbridge
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -48,6 +49,23 @@ class Dashboard : AppCompatActivity() {
 
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         getCurrentLocation(fusedLocationClient)
+
+        binding.coins.setOnClickListener {
+            val newIntent = Intent(this, PointsActivity::class.java)
+            startActivity(newIntent)
+        }
+
+        binding.signOut.setOnClickListener {
+            sharedPreferences.edit().clear().apply()
+            Toast.makeText(
+                this,
+                "Signed out successfully",
+                Toast.LENGTH_LONG
+            ).show()
+            val newIntent = Intent(this, LoginActivity::class.java)
+            newIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(newIntent)
+        }
     }
 
     private fun haversine(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {

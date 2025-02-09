@@ -28,4 +28,7 @@ interface ApiService {
 
     @POST("/food_items")
     fun sendDonation(@Body donationReq: DonationItem): Call<DonationItem>
+
+    @GET("/users/{user_id}/token_count")
+    fun getTokens(@Path("user_id") userId: String): Call<Int>
 }

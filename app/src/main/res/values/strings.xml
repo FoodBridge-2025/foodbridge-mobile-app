@@ -24,4 +24,10 @@
     <string name="age">Age</string>
     <string name="address">Address</string>
     <string name="phone">Phone</string>
+    <string name="points_available">Points Available</string>
+    <string name="next_5_reward">Next $5 reward</string>
+    <string name="coupons_collected">Coupons Collected</string>
+    <string name="_5_discount">$5 discount</string>
+    <string name="domino_s">Domino\'s</string>
+    <string name="target">Target</string>
 </resources>
