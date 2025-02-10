@@ -27,7 +27,6 @@ import com.garlicbread.foodbridge.dto.DonationItem
 import com.garlicbread.foodbridge.retrofit.RetrofitInstance
 import com.google.firebase.Firebase
 import com.google.firebase.storage.storage
-import com.google.gson.JsonObject
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -167,7 +166,7 @@ class DonationForm : AppCompatActivity() {
                     .build()
 
                 val request = Request.Builder()
-                    .url("https://debf-128-59-179-213.ngrok-free.app/upload_image")
+                    .url("https://3c4b-128-59-179-213.ngrok-free.app/upload_image")
                     .post(requestBody)
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
                     .build()
@@ -184,21 +183,28 @@ class DonationForm : AppCompatActivity() {
                             val json = JSONObject(it1)
                             val rating = json.getString("rating")
                             val reasoning = json.getString("reasoning")
-                            binding.insights.text = reasoning
-                            binding.value.text = "$rating (${rating.toInt() * 5} points)"
-                            binding.value.isVisible = true
+                            runOnUiThread {
+                                binding.insights.text = reasoning
+                                binding.rating.isVisible = true
+                                binding.value.text = "$rating (${rating.toInt() * 5} points)"
+                                binding.value.isVisible = true
+                            }
                         }
                     }
                 })
             }
 
             if (title.isNotEmpty() && flag) {
-                binding.donate.alpha = 1f
-                binding.donate.isEnabled = true
+                runOnUiThread {
+                    binding.donate.alpha = 1f
+                    binding.donate.isEnabled = true
+                }
             }
             else {
-                binding.donate.alpha = 0.4f
-                binding.donate.isEnabled = false
+                runOnUiThread {
+                    binding.donate.alpha = 0.4f
+                    binding.donate.isEnabled = false
+                }
             }
         }
     }
